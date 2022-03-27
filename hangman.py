@@ -35,7 +35,17 @@ HANGMAN_PICS = ['''
  /|\  |
  / \  |
      ===''']
-words = 'ant baboon badger bat bear beaver camel cat clam cobra cougar coyote crow deer dog donkey duck eagle ferret fox frog goat goose hawk lion lizard llama mole monkey moose mouse mule newt otter owl panda parrot pigeon python rabbit ram rat raven rhino salmon seal shark sheep skunk sloth snake spider stork swan tiger toad trout turkey turtle weasel whale wolf wombat zebra'.split()
+
+#Agrego más conjuntos de palabras que se relacionan entre sí.
+
+animals = 'ant baboon badger bat bear beaver camel cat clam cobra cougar coyote crow deer dog donkey duck eagle ferret fox frog goat goose hawk lion lizard llama mole monkey moose mouse mule newt otter owl panda parrot pigeon python rabbit ram rat raven rhino salmon seal shark sheep skunk sloth snake spider stork swan tiger toad trout turkey turtle weasel whale wolf wombat zebra'.split()
+countries = 'andorra argentina australia austria bahamas barbados bolivia brazil bulgaria canada chile china colombia croatia cuba ecuador egypt finland france germany greece guatemala haite honduras hungary iceland india indonesia ireland israel italy jamaica japan jordan kenya kuwait liberia lithuania madagascar mauritania mexico morocco netherlands nigeria norway panama paraguay peru poland russia senegal serbia spain turkey uruguay venezuela'.split()
+food = 'apple banana burger burrito cake cereal chocolate cookie cupcake donut egg gnocchi grape ham hotdog kiwi lasagna meatball milk noodle pancake pasta pizza quesadilla sandwich sushi waffle'.split()
+
+#Creo un diccionario con las listas. La clave de cada una será la pista.
+
+dict = {"It's an animal": animals, "It's a country": countries, "It's food": food}
+
 
 def getRandomWord(wordList):
     # This function returns a random string from the passed list of strings.
@@ -84,8 +94,16 @@ def playAgain():
 print('H A N G M A N')
 missedLetters = ''
 correctLetters = ''
-secretWord = getRandomWord(words)
+keys = list(dict.keys())
+clue = getRandomWord(keys) # Obtengo de forma aleatoria un tipo de conjunto
+set = dict[clue] # Lista de palabras del conjunto obtenido
+secretWord = getRandomWord(set)
 gameIsDone = False
+
+# Muestro en pantalla la pista
+
+print( "Clue: " + clue)
+
 
 while True:
     displayBoard(missedLetters, correctLetters, secretWord)
@@ -120,7 +138,11 @@ while True:
         if playAgain():
             missedLetters = ''
             correctLetters = ''
+            keys = list(dict.keys())
+            clue = getRandomWord(keys)
+            set = dict[clue]
+            secretWord = getRandomWord(set)
             gameIsDone = False
-            secretWord = getRandomWord(words)
+            print( "Clue: " + clue)
         else:
            break
